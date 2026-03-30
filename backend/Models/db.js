@@ -20,7 +20,7 @@ const sequelize = process.env.DATABASE_URL
             }
         }
     })
-    : new Sequelize(
+    : (process.env.DB_NAME ? new Sequelize(
         process.env.DB_NAME,
         process.env.DB_USER,
         process.env.DB_PASSWORD || '',
@@ -29,7 +29,11 @@ const sequelize = process.env.DATABASE_URL
             dialect: process.env.DB_DIALECT || 'mysql',
             logging: false,
         }
-    );
+    ) : new Sequelize({
+        dialect: 'sqlite',
+        storage: './database.sqlite',
+        logging: false
+    }));
 
 async function testConnection() {
     try {

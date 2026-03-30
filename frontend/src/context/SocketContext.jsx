@@ -15,7 +15,8 @@ export const SocketProvider = ({ children, userId, userRole }) => {
     }
 
     // Initialize socket connection
-    const newSocket = io('http://localhost:8080', {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+    const newSocket = io(API_BASE_URL, {
       withCredentials: true, // Optional: If you're using cookies or authentication
     });
 

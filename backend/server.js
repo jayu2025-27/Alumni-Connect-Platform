@@ -28,7 +28,22 @@ initSocket(server);
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://frontend-rouge-xi-59.vercel.app' // Vercel production link
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 // Routes
 app.get('/', (req, res) => {

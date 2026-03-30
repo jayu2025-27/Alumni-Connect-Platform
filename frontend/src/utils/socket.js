@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:8080"); // Update with your backend URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+const socket = io(API_BASE_URL);
 
 // Notify server of the logged-in user
 const userId = localStorage.getItem("userId"); // Example: User ID stored in localStorage

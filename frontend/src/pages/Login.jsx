@@ -32,9 +32,10 @@ function Login() {
         }
 
         // Determine the API endpoint based on user type
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
         const url = userType === 'alumni'
-            ? 'http://localhost:8080/api/alumni/login' // Alumni login endpoint
-            : 'http://localhost:8080/auth/login'; // User login endpoint
+            ? `${API_BASE_URL}/api/alumni/login`
+            : `${API_BASE_URL}/auth/login`;
 
         try {
             const response = await fetch(url, {
